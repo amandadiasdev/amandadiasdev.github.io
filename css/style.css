@@ -1,0 +1,433 @@
+/* Paleta controlada por variáveis: o comando `tema` troca só estes valores. */
+:root {
+  --bg: #070c10;
+  --bg-screen: #0b1218;
+  --fg: #d2ecf3;
+  --accent: #22e6ff;
+  --dim: #6d8d99;
+  --error: #ff6b6b;
+  --link: #8fd3ff;
+  --font:
+    "JetBrains Mono", "Fira Code", "Cascadia Code", ui-monospace, Menlo,
+    monospace;
+}
+
+:root[data-theme="amber"] {
+  --bg: #0f0b06;
+  --bg-screen: #17110a;
+  --fg: #f1dcb8;
+  --accent: #ffb000;
+  --dim: #9a7b4a;
+  --link: #ffd97a;
+}
+
+:root[data-theme="light"] {
+  --bg: #e9ebe6;
+  --bg-screen: #f7f8f5;
+  --fg: #1e2a22;
+  --accent: #0f7a3a;
+  --dim: #6a7a6f;
+  --error: #b3261e;
+  --link: #0b5cad;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: clamp(14px, 1.6vw, 16px);
+  line-height: 1.7;
+}
+
+.screen {
+  position: relative;
+  width: 100%;
+  max-width: 1360px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 0 2.5rem 1.5rem;
+  background: var(--bg-screen);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 60px rgb(0 0 0 / 0.5);
+}
+
+/* Linhas finas simulam um monitor antigo. Só decoração. */
+.screen::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2px,
+    rgb(0 0 0 / 0.08) 3px
+  );
+}
+
+:root[data-theme="light"] .screen::after {
+  display: none;
+}
+
+.titlebar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--dim);
+  color: var(--dim);
+  font-size: 0.85em;
+  position: sticky;
+  top: 0;
+  background: var(--bg-screen);
+  z-index: 1;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot-red {
+  background: #ff5f57;
+}
+.dot-yellow {
+  background: #febc2e;
+}
+.dot-green {
+  background: #28c840;
+}
+.title {
+  margin-left: 0.5rem;
+}
+
+.output {
+  flex: 1;
+  padding-top: 1.5rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.line {
+  margin: 0.2rem 0;
+}
+.line-cmd {
+  margin-top: 1rem;
+}
+.line-cmd {
+  color: var(--accent);
+}
+.line-cmd::before {
+  content: "amanda@portfolio:~$ ";
+  color: var(--dim);
+}
+.line-error {
+  color: var(--error);
+}
+.line-dim {
+  color: var(--dim);
+}
+.line-accent {
+  color: var(--accent);
+}
+
+.line-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding-left: 1.2rem;
+  margin-bottom: 1.6rem;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.05rem 0.5rem;
+  border: 1px solid var(--dim);
+  border-radius: 3px;
+  color: var(--accent);
+  font-size: 0.8em;
+  line-height: 1.5;
+  background: rgb(255 255 255 / 0.03);
+}
+
+.output a {
+  color: var(--link);
+  text-decoration: underline dotted;
+}
+
+.output .banner {
+  color: var(--accent);
+  font-size: clamp(0.45em, 1.3vw, 0.8em);
+  line-height: 1.05;
+  margin: 0.5rem 0 1rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  text-shadow: 0 0 10px rgb(34 230 255 / 0.25);
+}
+
+:root[data-theme="amber"] .output .banner {
+  text-shadow: 0 0 10px rgb(255 176 0 / 0.25);
+}
+
+:root[data-theme="light"] .output .banner {
+  text-shadow: none;
+}
+
+.line-hello {
+  font-size: 1.15em;
+  margin-top: 0.75rem;
+}
+
+.prompt-line {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  padding: 1rem 0;
+}
+
+.prompt {
+  color: var(--dim);
+  white-space: nowrap;
+}
+
+.cmd {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--accent);
+  font: inherit;
+  caret-color: var(--accent);
+}
+
+.quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--dim);
+}
+
+.quick button {
+  background: transparent;
+  border: 1px solid var(--dim);
+  color: var(--fg);
+  font: inherit;
+  font-size: 0.85em;
+  padding: 0.25rem 0.7rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.quick button:hover,
+.quick button:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Efeito de "digitando": cada caractere aparece com pequeno atraso. */
+.typing::after {
+  content: "▋";
+  color: var(--accent);
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .screen {
+    padding: 0 1rem 1rem;
+  }
+  .prompt {
+    display: none;
+  }
+}
+
+.cmd::placeholder {
+  color: var(--dim);
+  opacity: 0.7;
+}
+
+/* ----- painéis laterais decorativos ------------------------------------ */
+
+.stage {
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) minmax(0, 1360px) minmax(320px, 1fr);
+  min-height: 100vh;
+}
+
+.side {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  padding: 3rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  color: var(--dim);
+  font-size: 0.72em;
+  line-height: 1.35;
+  opacity: 0.38;
+  user-select: none;
+  pointer-events: none;
+}
+
+.side-right {
+  align-items: flex-end;
+  text-align: left;
+}
+
+.ambient-block {
+  margin: 0;
+  font: inherit;
+  white-space: pre;
+  animation: ambient-in 1.6s ease-out both;
+}
+
+.ambient-block::first-line {
+  color: var(--accent);
+  opacity: 0.8;
+}
+
+.ambient-block.fading {
+  animation: ambient-out 1.6s ease-in both;
+}
+
+@keyframes ambient-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes ambient-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 1200px) {
+  .stage {
+    grid-template-columns: 1fr;
+  }
+  .side {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-block,
+  .ambient-block.fading {
+    animation: none;
+  }
+}
+
+/* ----- cartão de foto na abertura -------------------------------------- */
+
+.photo-card {
+  position: absolute;
+  top: 4rem;
+  right: 2.5rem;
+  z-index: 1;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  animation: photo-in 1.2s ease-out both;
+}
+
+.photo-card.leaving {
+  animation: photo-out 1.2s ease-in both;
+}
+
+.photo-frame {
+  position: relative;
+  width: min(200px, 30vw);
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  box-shadow: 0 0 14px rgb(34 230 255 / 0.2);
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 15%;
+  display: block;
+}
+
+/* Linhas de monitor antigo, bem leves, como no resto da página. */
+.photo-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2px,
+    rgb(0 0 0 / 0.1) 3px
+  );
+  pointer-events: none;
+}
+
+.photo-card figcaption {
+  color: var(--dim);
+  font-size: 0.8em;
+}
+
+.photo-card figcaption::before {
+  content: "> ";
+  color: var(--accent);
+}
+
+@keyframes photo-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes photo-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    filter: blur(4px);
+  }
+}
+
+@media (max-width: 700px) {
+  .photo-card {
+    display: none;
+  }
+}

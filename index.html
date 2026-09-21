@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Amanda Dias | Terminal</title>
+    <meta
+      name="description"
+      content="Interactive portfolio of Amanda Dias, Software Engineering student. Type commands to explore."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23070c10'/%3E%3Ctext x='6' y='23' font-family='monospace' font-size='18' fill='%2322e6ff'%3E%3E_%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="stage">
+      <aside class="side side-left" aria-hidden="true"></aside>
+
+      <main class="screen" id="screen">
+        <header class="titlebar">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+          <span class="title">amanda@portfolio: ~</span>
+        </header>
+
+        <section class="output" id="output" aria-live="polite"></section>
+
+        <form class="prompt-line" id="prompt-form" autocomplete="off">
+          <label class="prompt" for="cmd">amanda@portfolio:~$</label>
+          <input
+            class="cmd"
+            id="cmd"
+            type="text"
+            autocapitalize="off"
+            autocorrect="off"
+            spellcheck="false"
+            aria-label="Type a command"
+            placeholder="type a command..."
+          />
+        </form>
+
+        <nav class="quick" aria-label="Command shortcuts">
+          <button type="button" data-cmd="about">about</button>
+          <button type="button" data-cmd="projects">projects</button>
+          <button type="button" data-cmd="research">research</button>
+          <button type="button" data-cmd="skills">skills</button>
+          <button type="button" data-cmd="contact">contact</button>
+          <button type="button" data-cmd="help">help</button>
+        </nav>
+      </main>
+
+      <aside class="side side-right" aria-hidden="true"></aside>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
