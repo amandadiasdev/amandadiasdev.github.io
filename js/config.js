@@ -59,7 +59,27 @@ export const config = {
 
   // Hand-picked projects, in the order you want them shown.
   // `repo` must match the GitHub repository name exactly.
+  // `url` is optional: use it when the repo lives outside your account.
   featured: [
+    {
+      repo: "jev-ids",
+      url: "https://github.com/jev-ids/jev-ids",
+      title: "Jev IDS",
+      summary:
+        "Intrusion detection in one request. The system shows TypeSafe's Jev, a " +
+        "System One Model, a single network flow plus five labeled examples and " +
+        "gets back a typed verdict: attack or not, and which kind. Benchmarked on " +
+        "NSL-KDD against an LLM and a Random Forest (pilot F1 0.86, 4.8x faster " +
+        "than the LLM, 15x fewer false alarms than the Random Forest). Research " +
+        "project with Paulo Severo and Prof. Silvio Quincozes (Unipampa).",
+      stack: [
+        "Python",
+        "Cybersecurity",
+        "Machine learning",
+        "NSL-KDD",
+        "scikit-learn",
+      ],
+    },
     {
       repo: "py-pip-man",
       title: "PyPipMan",

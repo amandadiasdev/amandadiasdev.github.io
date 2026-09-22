@@ -68,7 +68,7 @@ export const commands = {
     run(_, term) {
       config.featured.forEach((project) => {
         term.printHtml(
-          `${link(repoUrl(project.repo), project.title)}`,
+          `${link(project.url ?? repoUrl(project.repo), project.title)}`,
           "line-accent",
         );
         term.print(`  ${project.summary}`);
